@@ -249,6 +249,7 @@ void clearDrawTankForDirectionUpDw(COORD drawPos) {
    drawPos.Y++;
    SetConsoleCursorPosition(hCon,drawPos);
    printf("     \n");
+    
    
 }
 void clearDrawTankForDirectionLtRt(COORD drawPos) {
@@ -274,7 +275,7 @@ int main()
    SetConsoleCursorInfo(hCon, &curInfo);
    func_map(MAP);
 int i = 10, j =25, k=0;
-int mapa [10726];
+int mapa [9074];
    while(true)
    {
        int ch = getch();
@@ -282,17 +283,18 @@ int mapa [10726];
        switch(ch)
        {
            case DOWN: //down
+           //k=0;
             k = (j*165)+i;
-            printf ("%d",mapa[k]);
+           printf ("%d",mapa[k]);
           // system("cls");
           
           clearDrawTankForDirectionUpDw ({i,j});
         
-          if (mapa[k] == 1)
+          if (mapa[k] == 178)
           {
           		drawTankForDirectionDw ({i,j});
           		k=0;
-		
+		printf ("TESTupor%d",mapa[k]);
                break;
           	 
 		  }
@@ -300,32 +302,34 @@ int mapa [10726];
 		  		 j++;
 		  	drawTankForDirectionDw ({i,j});
 		  	k=0;
+		  		printf ("TEST%d",mapa[k]);
 		
                break;
           
 		  	
 		  }
-         	// j++;
-			drawTankForDirectionDw ({i,j});
-		
-               break;
+	
+         
            case UP: //up
-         	 	  clearDrawTankForDirectionUpDw ({i,j});
-         	 	  if (mapa[k] != 1)
+           
+            k = (j*165)+i;
+          	  clearDrawTankForDirectionUpDw ({i,j});
+          	  
+         	 	  if (mapa[k] == 178)
+         	 	  {
+         	 	  	drawTankForDirectionUp({i,j});
+         	 	  	k=0;
+         	 	  	break;
+					}
+					else
           {
-          	 j--;
+          	j--;
+          	drawTankForDirectionUp({i,j});
+          	k=0;
+          	    	 
+          	 break;
 		  }
-          	//	j--;
-         	 	 if(j <= 0 )
-         	 	 	drawTankForDirectionUp({i,j});
-         	 	 	else {
-					   				 //  j--; 
-           	drawTankForDirectionUp({i,j});
-           }
           
-          // 	
-          
-               break;
            case RIGHT://right
           // system("cls");
           clearDrawTankForDirectionLtRt({i,j});
