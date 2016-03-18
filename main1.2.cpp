@@ -267,14 +267,14 @@ void clearDrawTankForDirectionLtRt(COORD drawPos) {
 
 int main()
 {
-   system("mode con cols=165 lines=65");
+   system("mode con cols=165 lines=55");
    CONSOLE_CURSOR_INFO curInfo;
 
    curInfo.bVisible = false;
    curInfo.dwSize = 1;
    SetConsoleCursorInfo(hCon, &curInfo);
    func_map(MAP);
-int i = 10, j =25, k=0;
+int i = 10, j =25, k=0,n=0;
 int mapa [9074];
    while(true)
    {
@@ -284,17 +284,19 @@ int mapa [9074];
        {
            case DOWN: //down
            //k=0;
-            k = (j*165)+i;
-           printf ("%d",mapa[k]);
+            k = ((j+8)*165)+i+3;
+            n = ((j+8)*165)+i;
+         //  printf ("%d",mapa[k]);
           // system("cls");
           
           clearDrawTankForDirectionUpDw ({i,j});
+          clearDrawTankForDirectionLtRt({i,j});
         
-          if (mapa[k] == 178)
+          if (mapa[k] != 0)
           {
           		drawTankForDirectionDw ({i,j});
           		k=0;
-		printf ("TESTupor%d",mapa[k]);
+	//	printf ("TESTupor%d",mapa[k]);
                break;
           	 
 		  }
@@ -302,7 +304,7 @@ int mapa [9074];
 		  		 j++;
 		  	drawTankForDirectionDw ({i,j});
 		  	k=0;
-		  		printf ("TEST%d",mapa[k]);
+		  //		printf ("TEST%d",mapa[k]);
 		
                break;
           
@@ -313,17 +315,22 @@ int mapa [9074];
            case UP: //up
            
             k = (j*165)+i;
+            n = (j*165)+i+3;
           	  clearDrawTankForDirectionUpDw ({i,j});
-          	  
-         	 	  if (mapa[k] == 178)
+          	  clearDrawTankForDirectionLtRt({i,j});
+          	//  printf ("TEST%d",mapa[k]);
+         	 	  if( (mapa[k] != 0) || (mapa[n] != 0) )
          	 	  {
+         	 	 // 	printf ("TEST%d",mapa[k]);
          	 	  	drawTankForDirectionUp({i,j});
          	 	  	k=0;
+         	 	  	n=0;
          	 	  	break;
 					}
 					else
           {
           	j--;
+          //	printf ("TEST%d",mapa[k]);
           	drawTankForDirectionUp({i,j});
           	k=0;
           	    	 
@@ -332,18 +339,41 @@ int mapa [9074];
           
            case RIGHT://right
           // system("cls");
+          k = (j*165)+i;
+        
           clearDrawTankForDirectionLtRt({i,j});
-          	i++;
+          clearDrawTankForDirectionUpDw ({i,j});
+          if(mapa[k] != 0)
+          {
+          	drawTankForDirectionRt({i,j});
+		    break;
+		  }
+		  else
+		  {
+		  	i++;
 			drawTankForDirectionRt({i,j});
 		
                break;
+		  }
+          	
            case LEFT://left
-          // system("cls");
-          clearDrawTankForDirectionLtRt({i,j});
-          	i--;
-           drawTankForDirectionLt({i,j});
+           k = (j*165)+i;
+           clearDrawTankForDirectionLtRt({i,j});
+           clearDrawTankForDirectionUpDw ({i,j});
+           if(mapa[k] != 0)
+           
+          {
+          	drawTankForDirectionLt({i,j});
+		    break;
+		  }
+		  else
+		  {
+		  	i--;
+			drawTankForDirectionLt({i,j});
 		
                break;
+		  }
+         
            case 32://shot
 
                break;
